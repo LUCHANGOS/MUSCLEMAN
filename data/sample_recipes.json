@@ -1,0 +1,205 @@
+[
+  {
+    "id": "burger_magra_sin_pan",
+    "name": "Burger magra sin pan",
+    "category": "almuerzo",
+    "tags": ["sin_aceite", "alta_prote", "budget"],
+    "ingredients": [
+      { "food_id": "ground_beef_lean", "grams": 120 },
+      { "food_id": "eggs", "grams": 50 },
+      { "food_id": "mushrooms", "grams": 100 },
+      { "food_id": "onion", "grams": 50 }
+    ],
+    "steps": [
+      "Mezclar la carne molida con el huevo batido",
+      "Formar una hamburguesa y cocinar a la plancha sin aceite",
+      "Cocinar champiñones y aros de cebolla a la plancha",
+      "Usar aros de cebolla como 'pan' vegetal",
+      "Sazonar con sal, pimienta, ajo y orégano al gusto"
+    ],
+    "per_portion": {
+      "kcal": 310,
+      "protein": 28,
+      "fat": 18,
+      "carbs": 6,
+      "fiber": 2
+    },
+    "portions": 1,
+    "prep_time_min": 10,
+    "cooking_time_min": 15,
+    "cost_estimate": 1200,
+    "notes": "Plancha sin aceite; usar aros de cebolla/zapallo como 'pan'"
+  },
+  {
+    "id": "pollo_zapallo_porotos",
+    "name": "Pollo + zapallo + porotos verdes",
+    "category": "almuerzo",
+    "tags": ["sin_aceite", "alta_prote", "budget", "colesterol_friendly"],
+    "ingredients": [
+      { "food_id": "chicken_breast", "grams": 150 },
+      { "food_id": "zucchini", "grams": 150 },
+      { "food_id": "green_beans", "grams": 100 },
+      { "food_id": "cucumber", "grams": 100 }
+    ],
+    "steps": [
+      "Cocinar la pechuga de pollo a la plancha sin aceite",
+      "Hervir o cocinar al vapor el zapallo y porotos verdes",
+      "Agregar pepino fresco en rodajas",
+      "Sazonar con sal, pimienta y hierbas al gusto"
+    ],
+    "per_portion": {
+      "kcal": 340,
+      "protein": 46,
+      "fat": 6,
+      "carbs": 20,
+      "fiber": 6
+    },
+    "portions": 1,
+    "prep_time_min": 5,
+    "cooking_time_min": 20,
+    "cost_estimate": 1000,
+    "notes": "Alto en proteína, ideal para post-entreno"
+  },
+  {
+    "id": "huevos_champinon",
+    "name": "Huevos enteros + champiñón",
+    "category": "desayuno",
+    "tags": ["sin_aceite", "rapida", "budget"],
+    "ingredients": [
+      { "food_id": "eggs", "grams": 100 },
+      { "food_id": "mushrooms", "grams": 100 }
+    ],
+    "steps": [
+      "Cocinar los champiñones en sartén antiadherente sin aceite",
+      "Agregar los huevos batidos o hacer tortilla",
+      "Sazonar con sal y pimienta al gusto"
+    ],
+    "per_portion": {
+      "kcal": 165,
+      "protein": 15,
+      "fat": 11,
+      "carbs": 4,
+      "fiber": 1
+    },
+    "portions": 1,
+    "prep_time_min": 3,
+    "cooking_time_min": 7,
+    "cost_estimate": 600,
+    "notes": "Sartén antiadherente; sal pimienta"
+  },
+  {
+    "id": "avena_ligera",
+    "name": "Tazón de avena ligera",
+    "category": "desayuno",
+    "tags": ["sin_aceite", "sin_azucar", "rapida", "budget"],
+    "ingredients": [
+      { "food_id": "oats", "grams": 40 },
+      { "food_id": "mandarin", "grams": 100, "notes": "opcional" }
+    ],
+    "steps": [
+      "Cocinar la avena con agua",
+      "Agregar canela al gusto",
+      "Opcional: agregar media mandarina picada",
+      "Servir caliente"
+    ],
+    "per_portion": {
+      "kcal": 190,
+      "protein": 7,
+      "fat": 3,
+      "carbs": 38,
+      "fiber": 6
+    },
+    "portions": 1,
+    "prep_time_min": 2,
+    "cooking_time_min": 8,
+    "cost_estimate": 300,
+    "notes": "Avena con agua + canela (+ opcional ½ mandarina)"
+  },
+  {
+    "id": "ceviche_social",
+    "name": "Ceviche 'social'",
+    "category": "almuerzo",
+    "tags": ["sin_aceite", "social", "alta_prote", "colesterol_friendly"],
+    "ingredients": [
+      { "food_id": "white_fish", "grams": 150 },
+      { "food_id": "lemon_juice", "grams": 30 },
+      { "food_id": "red_onion", "grams": 30 },
+      { "food_id": "cilantro", "grams": 10 },
+      { "food_id": "avocado", "grams": 30, "notes": "opcional" }
+    ],
+    "steps": [
+      "Cortar el pescado en cubos pequeños",
+      "Marinar con jugo de limón por 15-20 minutos",
+      "Agregar cebolla morada y cilantro picados",
+      "Opcional: agregar palta en cubitos",
+      "Evitar mayonesa, sazonar con sal y ají al gusto"
+    ],
+    "per_portion": {
+      "kcal": 270,
+      "protein": 22,
+      "fat": 5,
+      "carbs": 8,
+      "fiber": 3
+    },
+    "portions": 1,
+    "prep_time_min": 25,
+    "cooking_time_min": 0,
+    "cost_estimate": 1800,
+    "notes": "Pescado 150g, limón, cebolla, cilantro; evitar mayonesa"
+  },
+  {
+    "id": "pollo_citrico",
+    "name": "Pollo cítrico sin aceite",
+    "category": "cena",
+    "tags": ["sin_aceite", "alta_prote", "rapida"],
+    "ingredients": [
+      { "food_id": "chicken_breast", "grams": 150 },
+      { "food_id": "lemon_juice", "grams": 20 },
+      { "food_id": "zucchini", "grams": 150 },
+      { "food_id": "cucumber", "grams": 100 }
+    ],
+    "steps": [
+      "Marinar la pechuga con jugo de limón, ajo en polvo y orégano",
+      "Cocinar en plancha teflón sin aceite",
+      "Acompañar con zapallo cocido y pepino fresco"
+    ],
+    "per_portion": {
+      "kcal": 285,
+      "protein": 47,
+      "fat": 6,
+      "carbs": 12,
+      "fiber": 3
+    },
+    "portions": 1,
+    "prep_time_min": 10,
+    "cooking_time_min": 15,
+    "cost_estimate": 1100,
+    "notes": "Plancha teflón; acompañar con zapallo 150g y pepino 100g"
+  },
+  {
+    "id": "proteina_post_entreno",
+    "name": "Batido post-entreno",
+    "category": "colacion",
+    "tags": ["rapida", "alta_prote"],
+    "ingredients": [
+      { "food_id": "protein_powder", "grams": 30 }
+    ],
+    "steps": [
+      "Mezclar proteína en polvo con agua fría",
+      "Batir hasta obtener consistencia uniforme",
+      "Consumir dentro de 30 min post-entreno"
+    ],
+    "per_portion": {
+      "kcal": 120,
+      "protein": 24,
+      "fat": 1.5,
+      "carbs": 1.5,
+      "fiber": 0.6
+    },
+    "portions": 1,
+    "prep_time_min": 2,
+    "cooking_time_min": 0,
+    "cost_estimate": 750,
+    "notes": "Proteína 30g ideal post-entreno"
+  }
+]

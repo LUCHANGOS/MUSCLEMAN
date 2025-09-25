@@ -1,0 +1,226 @@
+[
+  {
+    "id": "chicken_breast",
+    "name": "Pechuga de pollo",
+    "per_100g": {
+      "kcal": 165,
+      "protein": 31,
+      "fat": 3.6,
+      "carbs": 0,
+      "fiber": 0,
+      "sodium": 74
+    },
+    "cost_per_kg": 4500,
+    "seasonal_months": [1,2,3,4,5,6,7,8,9,10,11,12]
+  },
+  {
+    "id": "eggs",
+    "name": "Huevos",
+    "per_100g": {
+      "kcal": 155,
+      "protein": 13,
+      "fat": 11,
+      "carbs": 1.1,
+      "fiber": 0,
+      "sodium": 124
+    },
+    "cost_per_kg": 2800,
+    "seasonal_months": [1,2,3,4,5,6,7,8,9,10,11,12]
+  },
+  {
+    "id": "ground_beef_lean",
+    "name": "Carne molida magra",
+    "per_100g": {
+      "kcal": 250,
+      "protein": 26,
+      "fat": 15,
+      "carbs": 0,
+      "fiber": 0,
+      "sodium": 66
+    },
+    "cost_per_kg": 5200,
+    "seasonal_months": [1,2,3,4,5,6,7,8,9,10,11,12]
+  },
+  {
+    "id": "mushrooms",
+    "name": "Champiñones",
+    "per_100g": {
+      "kcal": 22,
+      "protein": 3.1,
+      "fat": 0.3,
+      "carbs": 3.3,
+      "fiber": 1,
+      "sodium": 5
+    },
+    "cost_per_kg": 3500,
+    "seasonal_months": [1,2,3,4,5,6,7,8,9,10,11,12]
+  },
+  {
+    "id": "onion",
+    "name": "Cebolla",
+    "per_100g": {
+      "kcal": 40,
+      "protein": 1.1,
+      "fat": 0.1,
+      "carbs": 9.3,
+      "fiber": 1.7,
+      "sodium": 4
+    },
+    "cost_per_kg": 800,
+    "seasonal_months": [1,2,3,4,5,6,7,8,9,10,11,12]
+  },
+  {
+    "id": "zucchini",
+    "name": "Zapallo italiano",
+    "per_100g": {
+      "kcal": 17,
+      "protein": 1.2,
+      "fat": 0.3,
+      "carbs": 3.1,
+      "fiber": 1,
+      "sodium": 8
+    },
+    "cost_per_kg": 1200,
+    "seasonal_months": [9,10,11,12,1,2,3]
+  },
+  {
+    "id": "green_beans",
+    "name": "Porotos verdes",
+    "per_100g": {
+      "kcal": 31,
+      "protein": 1.8,
+      "fat": 0.2,
+      "carbs": 6.9,
+      "fiber": 2.7,
+      "sodium": 6
+    },
+    "cost_per_kg": 1500,
+    "seasonal_months": [10,11,12,1,2,3]
+  },
+  {
+    "id": "cucumber",
+    "name": "Pepino",
+    "per_100g": {
+      "kcal": 16,
+      "protein": 0.7,
+      "fat": 0.1,
+      "carbs": 3.6,
+      "fiber": 0.5,
+      "sodium": 2
+    },
+    "cost_per_kg": 900,
+    "seasonal_months": [9,10,11,12,1,2,3,4]
+  },
+  {
+    "id": "oats",
+    "name": "Avena",
+    "per_100g": {
+      "kcal": 389,
+      "protein": 16.9,
+      "fat": 6.9,
+      "carbs": 66.3,
+      "fiber": 10.6,
+      "sodium": 2
+    },
+    "cost_per_kg": 1800,
+    "seasonal_months": [1,2,3,4,5,6,7,8,9,10,11,12]
+  },
+  {
+    "id": "mandarin",
+    "name": "Mandarina",
+    "per_100g": {
+      "kcal": 47,
+      "protein": 0.8,
+      "fat": 0.3,
+      "carbs": 11.7,
+      "fiber": 1.8,
+      "sodium": 2
+    },
+    "cost_per_kg": 1500,
+    "seasonal_months": [4,5,6,7,8]
+  },
+  {
+    "id": "white_fish",
+    "name": "Pescado blanco",
+    "per_100g": {
+      "kcal": 82,
+      "protein": 18,
+      "fat": 0.7,
+      "carbs": 0,
+      "fiber": 0,
+      "sodium": 54
+    },
+    "cost_per_kg": 6500,
+    "seasonal_months": [1,2,3,4,5,6,7,8,9,10,11,12]
+  },
+  {
+    "id": "red_onion",
+    "name": "Cebolla morada",
+    "per_100g": {
+      "kcal": 40,
+      "protein": 1.1,
+      "fat": 0.1,
+      "carbs": 9.3,
+      "fiber": 1.7,
+      "sodium": 4
+    },
+    "cost_per_kg": 1200,
+    "seasonal_months": [1,2,3,4,5,6,7,8,9,10,11,12]
+  },
+  {
+    "id": "cilantro",
+    "name": "Cilantro",
+    "per_100g": {
+      "kcal": 23,
+      "protein": 2.1,
+      "fat": 0.5,
+      "carbs": 3.7,
+      "fiber": 2.8,
+      "sodium": 46
+    },
+    "cost_per_kg": 3000,
+    "seasonal_months": [9,10,11,12,1,2,3]
+  },
+  {
+    "id": "lemon_juice",
+    "name": "Jugo de limón",
+    "per_100g": {
+      "kcal": 22,
+      "protein": 0.4,
+      "fat": 0.2,
+      "carbs": 6.9,
+      "fiber": 0.3,
+      "sodium": 2
+    },
+    "cost_per_kg": 1000,
+    "seasonal_months": [1,2,3,4,5,6,7,8,9,10,11,12]
+  },
+  {
+    "id": "avocado",
+    "name": "Palta",
+    "per_100g": {
+      "kcal": 160,
+      "protein": 2,
+      "fat": 14.7,
+      "carbs": 8.5,
+      "fiber": 6.7,
+      "sodium": 7
+    },
+    "cost_per_kg": 3200,
+    "seasonal_months": [1,2,3,4,5,6,7,8,9,10,11,12]
+  },
+  {
+    "id": "protein_powder",
+    "name": "Proteína en polvo",
+    "per_100g": {
+      "kcal": 400,
+      "protein": 80,
+      "fat": 5,
+      "carbs": 5,
+      "fiber": 2,
+      "sodium": 200
+    },
+    "cost_per_kg": 25000,
+    "seasonal_months": [1,2,3,4,5,6,7,8,9,10,11,12]
+  }
+]
