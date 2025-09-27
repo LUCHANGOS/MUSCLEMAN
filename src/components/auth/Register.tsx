@@ -74,7 +74,7 @@ const Register: React.FC<RegisterProps> = ({ onSuccess }) => {
             🥗
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Únete a NutriFit
+            Únete a MUSCULOSO
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Comienza tu viaje hacia una alimentación saludable

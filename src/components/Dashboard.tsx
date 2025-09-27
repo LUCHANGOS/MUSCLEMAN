@@ -1,10 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
+import { useMealPlanStore } from '../stores/mealPlanStore';
 import { calculateAllMetrics } from '../utils/calculators';
 
 const Dashboard: React.FC = () => {
   const { currentUser, onboardingData } = useAuthStore();
+  const { getPlanByDate } = useMealPlanStore();
   const navigate = useNavigate();
   
   // Crear datos temporales hasta que se implemente el perfil completo
@@ -97,7 +99,7 @@ const Dashboard: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900">Bienvenido a NutriFit</h2>
+          <h2 className="text-2xl font-bold text-gray-900">Bienvenido a MUSCULOSO</h2>
           <p className="mt-2 text-gray-600">Configura tu perfil para comenzar</p>
         </div>
       </div>
@@ -260,6 +262,76 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Plan del día */}
+      {(() => {
+        const todayPlan = getPlanByDate(new Date().toISOString().split('T')[0]);
+        if (todayPlan) {
+          return (
+            <div className="bg-white shadow rounded-lg">
+              <div className="px-4 py-5 sm:p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg leading-6 font-medium text-gray-900">
+                    🍽️ Plan de Hoy ({new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })})
+                  </h3>
+                  <div className="text-sm text-gray-500">
+                    {todayPlan.totals.calories} / {todayPlan.target_calories} kcal
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {todayPlan.meals.map((meal, index) => (
+                    <div key={index} className={`p-3 rounded-lg border-2 ${
+                      meal.completed ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'
+                    }`}>
+                      <div className="text-sm font-medium text-gray-900">
+                        {meal.type === 'desayuno' ? '🍳 Desayuno' :
+                         meal.type === 'almuerzo' ? '🍲 Almuerzo' :
+                         meal.type === 'colacion' ? '🍎 Colación' : '🍽️ Cena'}
+                      </div>
+                      <div className="text-xs text-gray-600 mt-1">
+                        {meal.recipe.name}
+                      </div>
+                      <div className="text-xs text-gray-500 mt-1">
+                        {meal.recipe.calories} kcal • {meal.recipe.protein}g prot.
+                      </div>
+                      {meal.completed && (
+                        <div className="text-xs text-green-600 mt-1 font-medium">✓ Completado</div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 flex justify-between items-center">
+                  <button
+                    onClick={() => navigate('/planes')}
+                    className="text-sm text-green-600 hover:text-green-700"
+                  >
+                    Ver plan completo →
+                  </button>
+                  <div className="text-sm text-gray-500">
+                    Progreso: {Math.round((todayPlan.totals.calories / todayPlan.target_calories) * 100)}%
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+        return (
+          <div className="bg-white shadow rounded-lg">
+            <div className="px-4 py-5 sm:p-6">
+              <div className="text-center py-8">
+                <h3 className="text-lg font-medium text-gray-900 mb-2">📋 No tienes plan para hoy</h3>
+                <p className="text-gray-500 mb-4">Genera un plan alimentario personalizado para comenzar</p>
+                <button
+                  onClick={() => navigate('/planes')}
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700"
+                >
+                  Generar Plan del Día
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Acciones rápidas */}
       <div className="bg-white shadow rounded-lg">

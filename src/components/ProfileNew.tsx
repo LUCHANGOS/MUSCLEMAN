@@ -115,7 +115,7 @@ const ProfileNew: React.FC = () => {
           Mi Perfil
         </h1>
         <p className="mt-1 text-sm text-gray-500">
-          Administra tu información personal y preferencias de NutriFit
+          Administra tu información personal y preferencias de MUSCULOSO
         </p>
       </div>
       

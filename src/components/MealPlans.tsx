@@ -1,32 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useAuthStore } from '../stores/authStore';
+import { useMealPlanStore, MealPlan } from '../stores/mealPlanStore';
 import { PlusIcon } from '@heroicons/react/24/outline';
-
-// Interface para el plan diario
-interface MealPlan {
-  id: string;
-  date: string;
-  meals: {
-    type: 'desayuno' | 'almuerzo' | 'colacion' | 'cena';
-    recipe: {
-      id: string;
-      name: string;
-      calories: number;
-      protein: number;
-      fat: number;
-      carbs: number;
-      prep_time: number;
-    };
-    completed: boolean;
-  }[];
-  totals: {
-    calories: number;
-    protein: number;
-    fat: number;
-    carbs: number;
-  };
-  target_calories: number;
-}
 
 // Recetas de ejemplo para usar en los planes
 const availableRecipes = {
@@ -53,9 +28,14 @@ const availableRecipes = {
 };
 
 const MealPlans: React.FC = () => {
-  const { onboardingData } = useAuthStore();
+  const { currentUser, onboardingData } = useAuthStore();
+  const { 
+    currentPlans, 
+    addPlan, 
+    toggleMealCompletion: toggleMeal
+  } = useMealPlanStore();
+  
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
-  const [currentPlans, setCurrentPlans] = useState<MealPlan[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedDays, setSelectedDays] = useState(7); // Días del plan
   
@@ -173,16 +153,20 @@ const MealPlans: React.FC = () => {
           };
         }, { calories: 0, protein: 0, fat: 0, carbs: 0 });
         
-        plans.push({
+        const plan: MealPlan = {
           id: `plan_${dateStr}`,
+          user_id: currentUser?.id || 'temp',
           date: dateStr,
           meals,
           totals,
           target_calories: targetCalories
-        });
+        };
+        
+        plans.push(plan);
       }
       
-      setCurrentPlans(plans);
+      // Guardar cada plan individualmente para persistir
+      plans.forEach(plan => addPlan(plan));
     } catch (error) {
       console.error('Error generando plan:', error);
     } finally {
@@ -196,17 +180,7 @@ const MealPlans: React.FC = () => {
   }
   
   const toggleMealCompletion = (planId: string, mealIndex: number) => {
-    setCurrentPlans(prev => prev.map(plan => {
-      if (plan.id === planId) {
-        const newMeals = [...plan.meals];
-        newMeals[mealIndex] = {
-          ...newMeals[mealIndex],
-          completed: !newMeals[mealIndex].completed
-        };
-        return { ...plan, meals: newMeals };
-      }
-      return plan;
-    }));
+    toggleMeal(planId, mealIndex);
   };
   
   const getMealIcon = (type: string) => {
