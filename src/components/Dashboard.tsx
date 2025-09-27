@@ -1,19 +1,93 @@
 import React, { useEffect } from 'react';
-import { useUserStore } from '../stores/userStore';
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../stores/authStore';
+import { calculateAllMetrics } from '../utils/calculators';
 
 const Dashboard: React.FC = () => {
-  const { currentUser, currentMetrics, loadUserData, isLoading } = useUserStore();
-
-  useEffect(() => {
-    if (!currentUser) {
-      loadUserData();
+  const { currentUser, onboardingData } = useAuthStore();
+  const navigate = useNavigate();
+  
+  // Crear datos temporales hasta que se implemente el perfil completo
+  const userData = {
+    ...currentUser,
+    ...onboardingData.personalInfo,
+    preferences: onboardingData.preferencesInfo || {
+      no_oil: true,
+      no_sugar: true,
+      no_fried: true,
+      likes: [],
+      dislikes: [],
+      budget_level: 'medium' as const,
+      baes_mode: false
+    },
+    health: onboardingData.healthInfo || {
+      medical_conditions: [],
+      allergies: [],
+      medications: [],
+      cholesterol_concerns: false
+    },
+    equipment: onboardingData.equipmentInfo || {
+      treadmill: false,
+      dumbbells: false,
+      jump_rope: false,
+      yoga_mat: false,
+      resistance_bands: false
     }
-  }, [currentUser, loadUserData]);
+  };
+  
+  // Calcular métricas si tenemos datos suficientes
+  const currentMetrics = userData.age && userData.height_cm && userData.weight_kg
+    ? calculateAllMetrics({
+        sex: userData.sex || 'female',
+        age: userData.age,
+        height_cm: userData.height_cm,
+        weight_kg: userData.weight_kg,
+        goal_weight_kg: userData.goal_weight_kg || userData.weight_kg,
+        goal_date: userData.goal_date || new Date().toISOString().split('T')[0],
+        kcal_target: userData.kcal_target || 1400,
+        activity_level: userData.activity_level || 'moderate'
+      } as any, getActivityFactor(userData.activity_level || 'moderate'))
+    : null;
+    
+  function getActivityFactor(level: string): number {
+    switch (level) {
+      case 'sedentary': return 1.2;
+      case 'light': return 1.375;
+      case 'moderate': return 1.55;
+      case 'active': return 1.725;
+      case 'very_active': return 1.9;
+      default: return 1.55;
+    }
+  }
+  
+  function getGoalText(goal: string): string {
+    switch (goal) {
+      case 'lose_weight': return 'Perder peso saludablemente';
+      case 'maintain': return 'Mantener peso actual';
+      case 'gain_weight': return 'Aumentar peso';
+      case 'gain_muscle': return 'Ganar masa muscular';
+      default: return 'Mejorar salud general';
+    }
+  }
+  
+  function getActivityText(level: string): string {
+    switch (level) {
+      case 'sedentary': return 'Sedentario';
+      case 'light': return 'Ligeramente activo';
+      case 'moderate': return 'Moderadamente activo';
+      case 'active': return 'Muy activo';
+      case 'very_active': return 'Extremadamente activo';
+      default: return 'Moderadamente activo';
+    }
+  }
 
-  if (isLoading) {
+  if (!currentUser) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900">Cargando perfil...</h2>
+          <p className="mt-2 text-gray-600">Obteniendo tus datos personalizados</p>
+        </div>
       </div>
     );
   }
@@ -34,7 +108,7 @@ const Dashboard: React.FC = () => {
       {/* Header */}
       <div className="border-b border-gray-200 pb-5">
         <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl">
-          ¡Hola, {currentUser.name}! 👋
+          ¡Hola, {currentUser.name} {currentUser.lastName}! 👋
         </h1>
         <p className="mt-1 text-sm text-gray-500">
           Aquí tienes un resumen de tu progreso nutricional y de entrenamiento
@@ -119,7 +193,7 @@ const Dashboard: React.FC = () => {
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">Objetivo Diario</dt>
                   <dd className="text-lg font-medium text-gray-900">
-                    {currentUser.kcal_target || 1400} kcal
+                    {userData.kcal_target || currentMetrics?.kcal_range?.target || 1400} kcal
                   </dd>
                 </dl>
               </div>
@@ -145,7 +219,7 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm font-medium text-red-800">Proteína</p>
-                  <p className="text-2xl font-bold text-red-900">{Math.round(currentUser.weight_kg * 1.8)}g</p>
+                  <p className="text-2xl font-bold text-red-900">{Math.round((userData.weight_kg || 70) * 1.8)}g</p>
                   <p className="text-xs text-red-600">25% del total</p>
                 </div>
               </div>
@@ -161,7 +235,7 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm font-medium text-yellow-800">Grasas</p>
-                  <p className="text-2xl font-bold text-yellow-900">{Math.round(currentUser.weight_kg * 0.7)}g</p>
+                  <p className="text-2xl font-bold text-yellow-900">{Math.round((userData.weight_kg || 70) * 0.7)}g</p>
                   <p className="text-xs text-yellow-600">30% del total</p>
                 </div>
               </div>
@@ -177,7 +251,7 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm font-medium text-blue-800">Carbohidratos</p>
-                  <p className="text-2xl font-bold text-blue-900">{Math.round(((currentUser.kcal_target || 1400) * 0.45) / 4)}g</p>
+                  <p className="text-2xl font-bold text-blue-900">{Math.round(((userData.kcal_target || currentMetrics?.kcal_range?.target || 1400) * 0.45) / 4)}g</p>
                   <p className="text-xs text-blue-600">45% del total</p>
                 </div>
               </div>
@@ -193,16 +267,28 @@ const Dashboard: React.FC = () => {
             Acciones Rápidas
           </h3>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700">
+            <button 
+              onClick={() => navigate('/planes')}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            >
               📋 Generar Plan
             </button>
-            <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+            <button 
+              onClick={() => navigate('/entrenamientos')}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
               🏋️ Nueva Rutina
             </button>
-            <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700">
+            <button 
+              onClick={() => navigate('/compras')}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+            >
               🛒 Lista de Compras
             </button>
-            <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700">
+            <button 
+              onClick={() => navigate('/progreso')}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+            >
               📊 Ver Progreso
             </button>
           </div>
@@ -218,26 +304,26 @@ const Dashboard: React.FC = () => {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div>
               <p className="text-sm font-medium text-gray-500">Edad</p>
-              <p className="text-sm text-gray-900">{currentUser.age} años</p>
+              <p className="text-sm text-gray-900">{userData.age || 'No especificado'} {userData.age ? 'años' : ''}</p>
             </div>
             <div>
               <p className="text-sm font-medium text-gray-500">Altura</p>
-              <p className="text-sm text-gray-900">{currentUser.height_cm} cm</p>
+              <p className="text-sm text-gray-900">{userData.height_cm || 'No especificado'} {userData.height_cm ? 'cm' : ''}</p>
             </div>
             <div>
               <p className="text-sm font-medium text-gray-500">Peso</p>
-              <p className="text-sm text-gray-900">{currentUser.weight_kg} kg</p>
+              <p className="text-sm text-gray-900">{userData.weight_kg || 'No especificado'} {userData.weight_kg ? 'kg' : ''}</p>
             </div>
             <div>
               <p className="text-sm font-medium text-gray-500">Objetivo</p>
               <p className="text-sm text-gray-900">
-                Perder peso saludablemente
+                {getGoalText(userData.goal_type || 'lose_weight')}
               </p>
             </div>
             <div>
               <p className="text-sm font-medium text-gray-500">Nivel de Actividad</p>
               <p className="text-sm text-gray-900">
-                Moderadamente activa
+                {getActivityText(userData.activity_level || 'moderate')}
               </p>
             </div>
           </div>

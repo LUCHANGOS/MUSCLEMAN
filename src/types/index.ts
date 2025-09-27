@@ -1,3 +1,88 @@
+// ===== AUTENTICACIÓN Y ONBOARDING =====
+export interface AuthUser {
+  id: string;
+  name: string;
+  lastName: string;
+  phone: string; // Identificador único
+  email?: string;
+  isAuthenticated: boolean;
+  profileCompleted: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface OnboardingData {
+  currentStep: number;
+  totalSteps: number;
+  personalInfo?: {
+    sex: 'male' | 'female';
+    age: number;
+    height_cm: number;
+    weight_kg: number;
+    goal_weight_kg: number;
+    goal_date: string;
+    activity_level: 'sedentary' | 'light' | 'moderate' | 'active' | 'very_active';
+    goal_type: 'lose_weight' | 'maintain' | 'gain_weight' | 'gain_muscle';
+  };
+  healthInfo?: {
+    medical_conditions: string[];
+    allergies: string[];
+    medications: string[];
+    cholesterol_concerns: boolean;
+    ldl?: number;
+    hdl?: number;
+    triglycerides?: number;
+    blood_pressure?: string;
+  };
+  preferencesInfo?: {
+    no_oil: boolean;
+    no_sugar: boolean;
+    no_fried: boolean;
+    likes: string[];
+    dislikes: string[];
+    budget_level: 'low' | 'medium' | 'high';
+    baes_mode: boolean;
+  };
+  equipmentInfo?: {
+    treadmill: boolean;
+    dumbbells: boolean;
+    dumbbells_weight_kg?: number;
+    jump_rope: boolean;
+    yoga_mat: boolean;
+    resistance_bands: boolean;
+  };
+  scheduleInfo?: {
+    workout_time?: string;
+    meal_times: {
+      breakfast?: string;
+      lunch?: string;
+      snack?: string;
+      dinner?: string;
+    };
+    fasting_days: number[];
+    weekly_workouts: number;
+  };
+}
+
+export interface LoginFormData {
+  phone: string;
+  password?: string; // Opcional si usamos SMS
+}
+
+export interface RegisterFormData {
+  name: string;
+  lastName: string;
+  phone: string;
+  email?: string;
+  acceptTerms: boolean;
+}
+
+export interface PhoneValidation {
+  phone: string;
+  code: string;
+  isValid: boolean;
+}
+
 // ===== TIPOS DE USUARIO Y PERFIL =====
 export interface User {
   id: string;

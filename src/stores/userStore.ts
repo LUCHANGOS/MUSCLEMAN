@@ -1,8 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { User, Metrics, AppConfig } from '@/types';
-import { dataStorage, StorageUtils } from '@/utils/dataStorage';
-import { calculateAllMetrics } from '@/utils/calculators';
+import { User, Metrics, AppConfig } from '../types';
+import { calculateAllMetrics } from '../utils/calculators';
 
 interface UserState {
   // Estado
@@ -169,30 +168,34 @@ export const useUserStore = create<UserState>()(
         }
       },
 
-      // Cargar datos del usuario al iniciar la aplicación
+      // Cargar datos del usuario desde authStore
       loadUserData: async () => {
+        const { currentUser } = get();
+        
+        if (!currentUser) {
+          set({ isLoading: false });
+          return;
+        }
+        
         try {
           set({ isLoading: true, error: null });
           
-          // Por ahora, crear usuario demo
-          // En producción, aquí cargarías desde almacenamiento o autenticación
-          const demoUser = DEMO_USER;
-          
-          // Guardar usuario demo
-          await dataStorage.saveUser(demoUser);
-          
           // Cargar configuración
-          let config = await dataStorage.getAppConfig();
-          if (!config) {
-            config = DEFAULT_APP_CONFIG;
-            await dataStorage.saveAppConfig(config);
-          }
+          let config = DEFAULT_APP_CONFIG;
           
-          const metrics = calculateAllMetrics(demoUser, 1.55);
+          // Si hay usuario, calcular métricas
+          const metrics = calculateAllMetrics({
+            ...currentUser,
+            sex: 'female', // Temporal hasta tener datos completos
+            age: 28,
+            height_cm: 165,
+            weight_kg: 70,
+            goal_weight_kg: 65,
+            goal_date: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            kcal_target: 1400
+          } as User, 1.55);
           
           set({
-            currentUser: demoUser,
-            isAuthenticated: true,
             currentMetrics: metrics,
             appConfig: config,
             isLoading: false,
