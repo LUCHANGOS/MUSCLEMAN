@@ -1,7 +1,6 @@
 import { 
   WorkoutPlanDay, 
-  Reminder, 
-  MealPlanDay 
+  Reminder
 } from '@/types';
 
 /**
@@ -369,11 +368,10 @@ function workoutToCalendarEvent(
   endDate.setMinutes(endDate.getMinutes() + workout.duration_min);
 
   // Determinar tipo de entrenamiento principal
-  const hasStrength = workout.blocks.some(b => b.type === 'strength');
   const hasCardio = workout.blocks.some(b => b.type === 'run');
   const hasHIIT = workout.blocks.some(b => b.type === 'hiit');
   
-  let colorId = EVENT_COLORS.workout_strength;
+  let colorId: string = EVENT_COLORS.workout_strength;
   let workoutType = 'Fuerza';
   
   if (hasHIIT) {
@@ -432,7 +430,7 @@ function reminderToCalendarEvent(
   const endDate = new Date(startDate);
   endDate.setMinutes(endDate.getMinutes() + 5); // Recordatorio de 5 minutos
 
-  let colorId = EVENT_COLORS.water_reminder;
+  let colorId: string = EVENT_COLORS.water_reminder;
   let icon = '💧';
   
   switch (reminder.type) {
@@ -644,7 +642,6 @@ export function generateICSFile(
     const endDate = new Date(startDate);
     endDate.setMinutes(endDate.getMinutes() + workout.duration_min);
 
-    const hasStrength = workout.blocks.some(b => b.type === 'strength');
     const hasCardio = workout.blocks.some(b => b.type === 'run');
     const hasHIIT = workout.blocks.some(b => b.type === 'hiit');
     

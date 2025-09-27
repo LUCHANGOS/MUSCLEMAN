@@ -23,6 +23,7 @@ export interface OnboardingData {
     goal_date: string;
     activity_level: 'sedentary' | 'light' | 'moderate' | 'active' | 'very_active';
     goal_type: 'lose_weight' | 'maintain' | 'gain_weight' | 'gain_muscle';
+    kcal_target?: number;
   };
   healthInfo?: {
     medical_conditions: string[];
@@ -138,6 +139,7 @@ export interface Equipment {
 // ===== MÉTRICAS Y CÁLCULOS =====
 export interface Metrics {
   bmi: number;
+  bmr: number; // TMB - alias para bmr_mifflin
   bmr_mifflin: number; // TMB
   tdee: number; // GET
   kcal_range: {

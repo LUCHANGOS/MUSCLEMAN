@@ -12,7 +12,6 @@ const Login: React.FC<LoginProps> = ({ onSuccess }) => {
   const [formData, setFormData] = useState<LoginFormData>({
     phone: '',
   });
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,14 +48,6 @@ const Login: React.FC<LoginProps> = ({ onSuccess }) => {
     }
   };
 
-  const formatPhoneDisplay = (phone: string) => {
-    // Mostrar formato +56 9 XXXX XXXX
-    const cleaned = phone.replace(/[^0-9]/g, '');
-    if (cleaned.length <= 8) {
-      return cleaned;
-    }
-    return `+56 ${cleaned.slice(0, 1)} ${cleaned.slice(1, 5)} ${cleaned.slice(5, 9)}`;
-  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

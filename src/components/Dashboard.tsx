@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 import { calculateAllMetrics } from '../utils/calculators';
@@ -11,6 +11,7 @@ const Dashboard: React.FC = () => {
   const userData = {
     ...currentUser,
     ...onboardingData.personalInfo,
+    kcal_target: onboardingData.personalInfo?.kcal_target || 1400,
     preferences: onboardingData.preferencesInfo || {
       no_oil: true,
       no_sugar: true,

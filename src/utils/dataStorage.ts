@@ -4,9 +4,6 @@ import {
   WorkoutPlanDay, 
   Measurement, 
   Recipe, 
-  ShoppingList, 
-  Reminder,
-  PersonalRecords,
   AppConfig 
 } from '@/types';
 
@@ -133,7 +130,7 @@ class IndexedDBManager {
 
     // Store de marcas personales
     if (!db.objectStoreNames.contains(STORES.personal_records)) {
-      const recordsStore = db.createObjectStore(STORES.personal_records, { keyPath: 'user_id' });
+      db.createObjectStore(STORES.personal_records, { keyPath: 'user_id' });
     }
 
     // Store de configuración
@@ -547,17 +544,17 @@ export class DataStorage {
         let recipes: Recipe[];
         
         if (category) {
-          recipes = await dbManager.execute<Recipe[]>({ 
+          recipes = (await dbManager.execute<Recipe[]>({ 
             store: STORES.recipes, 
             operation: 'getAll',
             index: 'category',
             query: category
-          });
+          })) as Recipe[];
         } else {
-          recipes = await dbManager.execute<Recipe[]>({ 
+          recipes = (await dbManager.execute<Recipe[]>({ 
             store: STORES.recipes, 
             operation: 'getAll'
-          });
+          })) as Recipe[];
         }
         
         return recipes as Recipe[];

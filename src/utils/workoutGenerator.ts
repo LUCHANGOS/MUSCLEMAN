@@ -5,7 +5,6 @@ import {
   RunDetails, 
   HIITDetails, 
   StrengthDetails, 
-  BasicDetails,
   PersonalRecords,
   Equipment 
 } from '@/types';
@@ -345,7 +344,8 @@ function progressWorkout(
   template: WorkoutTemplate,
   personalRecords: PersonalRecords,
   fitnessLevel: FitnessLevel,
-  sessionNumber: number = 1
+  user: User,
+  // sessionNumber: number = 1
 ): WorkoutBlock[] {
   return template.blocks.map(block => {
     const progressedBlock = { ...block };
@@ -357,7 +357,7 @@ function progressWorkout(
       advanced: 1.2
     }[fitnessLevel];
     
-    const sessionMultiplier = 1 + (sessionNumber - 1) * 0.05; // 5% más por sesión
+    // const sessionMultiplier = 1 + (sessionNumber - 1) * 0.05; // 5% más por sesión
     
     if (block.type === 'strength' && 'exercises' in block.details) {
       const strengthDetails = block.details as StrengthDetails;
@@ -517,7 +517,7 @@ export function generateWorkoutPlan(
     const daysDiff = Math.floor((currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
     const sessionNumber = Math.floor(daysDiff / 2) + 1; // Una sesión cada 2 días aprox.
     
-    const progressedBlocks = progressWorkout(selectedTemplate, personalRecords, fitnessLevel, sessionNumber);
+    const progressedBlocks = progressWorkout(selectedTemplate, personalRecords, fitnessLevel, user);
     
     // Calcular calorías totales
     const totalKcalEstimate = progressedBlocks.reduce((sum, block) => sum + block.kcal_estimate, 0);

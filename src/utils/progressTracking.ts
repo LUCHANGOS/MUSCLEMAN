@@ -3,7 +3,6 @@ import {
   Measurement, 
   MealPlanDay, 
   WorkoutPlanDay, 
-  ProgressRule, 
   ProgressSuggestion,
   PersonalRecords 
 } from '@/types';
@@ -36,48 +35,48 @@ export interface WeeklyProgressAnalysis {
 /**
  * Reglas de progresión predefinidas
  */
-const PROGRESS_RULES: ProgressRule[] = [
-  {
-    id: 'weight_loss_too_fast',
-    name: 'Pérdida de peso muy rápida',
-    condition: 'Peso bajando >1% semanal',
-    action: 'increase_kcal',
-    adjustment_pct: 5,
-    priority: 1
-  },
-  {
-    id: 'weight_loss_too_slow',
-    name: 'Pérdida de peso muy lenta',
-    condition: 'Peso bajando <0.25% semanal por 2 semanas',
-    action: 'decrease_kcal',
-    adjustment_pct: 5,
-    priority: 2
-  },
-  {
-    id: 'protein_insufficient',
-    name: 'Proteína insuficiente',
-    condition: 'Proteína <objetivo 3+ días/semana',
-    action: 'alert',
-    adjustment_pct: 0,
-    priority: 3
-  },
-  {
-    id: 'rpe_too_high',
-    name: 'RPE muy alto sostenido',
-    condition: 'RPE ≥8 por 3+ entrenamientos',
-    action: 'decrease_volume',
-    adjustment_pct: 10,
-    priority: 1
-  },
-  {
-    id: 'performance_improved',
-    name: 'Marcas personales mejoradas',
-    condition: 'Flexiones/plancha/cardio mejorados',
-    action: 'increase_volume',
-    adjustment_pct: 7.5,
-    priority: 4
-  }
-];
+// const PROGRESS_RULES: ProgressRule[] = [
+//   {
+//     id: 'weight_loss_too_fast',
+//     name: 'Pérdida de peso muy rápida',
+//     condition: 'Peso bajando >1% semanal',
+//     action: 'increase_kcal',
+//     adjustment_pct: 5,
+//     priority: 1
+//   },
+//   {
+//     id: 'weight_loss_too_slow',
+//     name: 'Pérdida de peso muy lenta',
+//     condition: 'Peso bajando <0.25% semanal por 2 semanas',
+//     action: 'decrease_kcal',
+//     adjustment_pct: 5,
+//     priority: 2
+//   },
+//   {
+//     id: 'protein_insufficient',
+//     name: 'Proteína insuficiente',
+//     condition: 'Proteína <objetivo 3+ días/semana',
+//     action: 'alert',
+//     adjustment_pct: 0,
+//     priority: 3
+//   },
+//   {
+//     id: 'rpe_too_high',
+//     name: 'RPE muy alto sostenido',
+//     condition: 'RPE ≥8 por 3+ entrenamientos',
+//     action: 'decrease_volume',
+//     adjustment_pct: 10,
+//     priority: 1
+//   },
+//   {
+//     id: 'performance_improved',
+//     name: 'Marcas personales mejoradas',
+//     condition: 'Flexiones/plancha/cardio mejorados',
+//     action: 'increase_volume',
+//     adjustment_pct: 7.5,
+//     priority: 4
+//   }
+// ];
 
 /**
  * Calcula el porcentaje de cambio de peso semanal

@@ -125,6 +125,7 @@ export function calculateAllMetrics(user: User, activity_factor: number): Metric
   
   return {
     bmi,
+    bmr: bmr_mifflin, // alias para compatibilidad
     bmr_mifflin,
     tdee,
     kcal_range,

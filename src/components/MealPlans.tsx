@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useAuthStore } from '../stores/authStore';
-import { CalendarDaysIcon, ClockIcon, FireIcon, ScaleIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { PlusIcon } from '@heroicons/react/24/outline';
 
 // Interface para el plan diario
 interface MealPlan {
@@ -53,7 +53,7 @@ const availableRecipes = {
 };
 
 const MealPlans: React.FC = () => {
-  const { currentUser, onboardingData } = useAuthStore();
+  const { onboardingData } = useAuthStore();
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [currentPlans, setCurrentPlans] = useState<MealPlan[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);

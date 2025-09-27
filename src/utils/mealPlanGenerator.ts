@@ -2,10 +2,7 @@ import {
   User, 
   Recipe, 
   MealPlanDay, 
-  Meal, 
-  FoodItem,
-  RecipeFilter,
-  RecipeTag 
+  Meal
 } from '@/types';
 import { calculateAllMetrics } from '@/utils/calculators';
 
@@ -426,7 +423,7 @@ export function suggestMealSubstitutions(
     );
     
     // Filtrar por rango calórico similar
-    const targetKcal = currentRecipe.per_portion.kcal * meal.portions;
+    // const targetKcal = currentRecipe.per_portion.kcal * meal.portions;
     const similarKcalRecipes = alternatives.filter(recipe => {
       const deviation = Math.abs(recipe.per_portion.kcal - currentRecipe.per_portion.kcal) / currentRecipe.per_portion.kcal;
       return deviation <= 0.25; // 25% de tolerancia

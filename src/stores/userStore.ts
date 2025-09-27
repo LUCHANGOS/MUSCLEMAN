@@ -36,50 +36,50 @@ const DEFAULT_APP_CONFIG: AppConfig = {
 };
 
 // Usuario demo para desarrollo (eliminar en producción)
-const DEMO_USER: User = {
-  id: 'demo_user_' + Date.now(),
-  name: 'Usuario Demo',
-  email: 'demo@nutrifit.app',
-  authProvider: 'local',
-  sex: 'female',
-  age: 28,
-  height_cm: 165,
-  weight_kg: 70,
-  goal_weight_kg: 65,
-  goal_date: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 3 meses
-  kcal_target: 1400,
-  budget_level: 'medium',
-  preferences: {
-    no_oil: true,
-    no_sugar: true,
-    no_fried: true,
-    dislikes: ['pescado', 'apio'],
-    likes: ['pollo', 'huevo', 'avena'],
-    avocado_daily_g: 20,
-    nuts_weekly_servings: 2,
-    fish_weekly_servings: 1, // Menos porque no le gusta
-  },
-  health: {
-    ldl: 120,
-    hdl: 45,
-    tg: 150,
-    allergies: [],
-    intolerances: ['lactosa'],
-    medical_notes: 'Objetivo: reducir LDL y mejorar composición corporal',
-    doctor_approval: true,
-  },
-  equipment: {
-    treadmill: true,
-    dumbbells_kg: 3,
-    rope: true,
-    mat: true,
-    resistance_bands: false,
-  },
-  timezone: 'America/Santiago',
-  locale: 'es',
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
-};
+// const DEMO_USER: User = {
+//   id: 'demo_user_' + Date.now(),
+//   name: 'Usuario Demo',
+//   email: 'demo@nutrifit.app',
+//   authProvider: 'local',
+//   sex: 'female',
+//   age: 28,
+//   height_cm: 165,
+//   weight_kg: 70,
+//   goal_weight_kg: 65,
+//   goal_date: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 3 meses
+//   kcal_target: 1400,
+//   budget_level: 'medium',
+//   preferences: {
+//     no_oil: true,
+//     no_sugar: true,
+//     no_fried: true,
+//     dislikes: ['pescado', 'apio'],
+//     likes: ['pollo', 'huevo', 'avena'],
+//     avocado_daily_g: 20,
+//     nuts_weekly_servings: 2,
+//     fish_weekly_servings: 1, // Menos porque no le gusta
+//   },
+//   health: {
+//     ldl: 120,
+//     hdl: 45,
+//     tg: 150,
+//     allergies: [],
+//     intolerances: ['lactosa'],
+//     medical_notes: 'Objetivo: reducir LDL y mejorar composición corporal',
+//     doctor_approval: true,
+//   },
+//   equipment: {
+//     treadmill: true,
+//     dumbbells_kg: 3,
+//     rope: true,
+//     mat: true,
+//     resistance_bands: false,
+//   },
+//   timezone: 'America/Santiago',
+//   locale: 'es',
+//   createdAt: new Date().toISOString(),
+//   updatedAt: new Date().toISOString(),
+// };
 
 export const useUserStore = create<UserState>()(
   persist(
@@ -103,8 +103,8 @@ export const useUserStore = create<UserState>()(
           error: null 
         });
         
-        // Guardar en almacenamiento persistente
-        dataStorage.saveUser(user);
+        // Guardar en almacenamiento persistente (comentado temporalmente)
+        // dataStorage.saveUser(user);
       },
 
       // Actualizar usuario
@@ -121,7 +121,8 @@ export const useUserStore = create<UserState>()(
         try {
           set({ isLoading: true, error: null });
           
-          const success = await dataStorage.saveUser(updatedUser);
+          // const success = await dataStorage.saveUser(updatedUser);
+          const success = true; // Temporalmente
           if (success) {
             const metrics = calculateAllMetrics(updatedUser, 1.55);
             set({ 
@@ -212,7 +213,8 @@ export const useUserStore = create<UserState>()(
       // Configurar aplicación
       setAppConfig: async (config: AppConfig) => {
         try {
-          const success = await dataStorage.saveAppConfig(config);
+          // const success = await dataStorage.saveAppConfig(config);
+          const success = true; // Temporalmente
           if (success) {
             set({ appConfig: config });
           } else {

@@ -9,7 +9,6 @@ const ProfileNew: React.FC = () => {
     updatePersonalInfo,
     updateHealthInfo,
     updatePreferencesInfo,
-    updateEquipmentInfo,
     updateScheduleInfo 
   } = useAuthStore();
   

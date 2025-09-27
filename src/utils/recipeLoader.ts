@@ -34,7 +34,7 @@ export interface RecipeTextFormat {
  */
 export function parseRecipeFromText(
   recipeText: string,
-  category: 'desayuno' | 'almuerzo' | 'cena',
+  // category: 'desayuno' | 'almuerzo' | 'cena',
   recipeId: string
 ): RecipeTextFormat | null {
   try {
@@ -300,7 +300,7 @@ export async function loadRecipeFromFile(
 ): Promise<Recipe | null> {
   const recipeId = filename.replace('.txt', '').replace(/[^a-z0-9]/gi, '_').toLowerCase();
   
-  const parsedRecipe = parseRecipeFromText(fileContent, category, recipeId);
+  const parsedRecipe = parseRecipeFromText(fileContent, recipeId);
   if (!parsedRecipe) return null;
   
   // Convertir ingredientes de texto a estructura Recipe
